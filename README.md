@@ -31,8 +31,10 @@ KONAMI社のアーケード音楽ゲーム”beatmaniaIIDX”のプレイヤー�
 
   - 前提としてpython3の実行環境が必要
   1. `cd beatmania_data_analyzer/`
-  1. `pipenv install`
+  1. `pip install pipenv (--user)`
+  - この作業は初回のみ
   1. `pipenv shell`
+  1. `pipenv install`
   1. `python parseJson.py`
   - 同ディレクトリにmyPlaydata.jsonが出力される
 
