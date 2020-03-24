@@ -2,30 +2,30 @@
 import pandas as pd
 
 # CSVファイルの読み込み
-my_play_data_flame = pd.read_csv(
+my_play_dataframe = pd.read_csv(
     "./beatmaniaPlayData.csv")
 
-# 読み込んだCSVファイルのdata_flameのデータ長を取得
-data_length = len(my_play_data_flame.index)
+# 読み込んだCSVファイルのdataframeのデータ長を取得
+data_length = len(my_play_dataframe.index)
 
 # 読み込んだCSVで欲しい列のヘッダ名を設定する
 # このデータを使って分散などの統計データを取る予定
-music_title = my_play_data_flame["タイトル"]
+music_title = my_play_dataframe["タイトル"]
 
-hyper_difficulty = my_play_data_flame["HYPER 難易度"]
-hyper_ex_score = my_play_data_flame["HYPER EXスコア"]
-hyper_misscount = my_play_data_flame["HYPER ミスカウント"]
-hyper_cleartype = my_play_data_flame["HYPER クリアタイプ"]
-hyper_dj_level = my_play_data_flame["HYPER DJ LEVEL"]
+hyper_difficulty = my_play_dataframe["HYPER 難易度"]
+hyper_ex_score = my_play_dataframe["HYPER EXスコア"]
+hyper_misscount = my_play_dataframe["HYPER ミスカウント"]
+hyper_cleartype = my_play_dataframe["HYPER クリアタイプ"]
+hyper_dj_level = my_play_dataframe["HYPER DJ LEVEL"]
 
-another_difficulty = my_play_data_flame["ANOTHER 難易度"]
-another_ex_score = my_play_data_flame["ANOTHER EXスコア"]
-another_miss_count = my_play_data_flame["ANOTHER ミスカウント"]
-another_cleartype = my_play_data_flame["ANOTHER クリアタイプ"]
-another_dj_level = my_play_data_flame["ANOTHER DJ LEVEL"]
+another_difficulty = my_play_dataframe["ANOTHER 難易度"]
+another_ex_score = my_play_dataframe["ANOTHER EXスコア"]
+another_miss_count = my_play_dataframe["ANOTHER ミスカウント"]
+another_cleartype = my_play_dataframe["ANOTHER クリアタイプ"]
+another_dj_level = my_play_dataframe["ANOTHER DJ LEVEL"]
 
-latest_play_dateTime = my_play_data_flame["最終プレー日時"]
-play_count = my_play_data_flame["プレー回数"]
+latest_play_dateTime = my_play_dataframe["最終プレー日時"]
+play_count = my_play_dataframe["プレー回数"]
 
 # 各曲全て参照する
 # ここで曲（行）ごとのデータが取得できる
@@ -44,6 +44,6 @@ for index in range(data_length):
 
 # JSONファイルとして変換し出力する
 # force_asciiで2バイト文字のエスケープを回避する
-my_play_data_flame.to_json("./myPlayData.json", force_ascii=False)
+my_play_dataframe.to_json("./myPlayData.json", force_ascii=False)
 
-print("JSON data Creating Done!")
+print("JSON file creation done!")
