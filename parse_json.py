@@ -1,5 +1,6 @@
 # 必要なライブラリのインポート
 import pandas as pd
+import numpy as np
 
 # CSVファイルの読み込み
 my_play_dataframe = pd.read_csv(
@@ -26,6 +27,9 @@ another_dj_level = my_play_dataframe["ANOTHER DJ LEVEL"]
 
 latest_play_dateTime = my_play_dataframe["最終プレー日時"]
 play_count = my_play_dataframe["プレー回数"]
+
+#numpyで統計データを取る
+# another_ex_scoreが既にlistなのでnumpyが使用できる
 
 # 各曲全て参照する
 # ここで曲（行）ごとのデータが取得できる

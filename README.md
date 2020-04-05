@@ -7,8 +7,13 @@ KONAMI社のアーケード音楽ゲーム”beatmaniaIIDX”のプレイヤー�
 ## ファイル構成
 
  - parse_json.py ：同ディレクトリのCSVファイルを読み込むプログラム
+ - web_scraping.py :webスクレイピングを行うプログラム
+    - table要素の各tdをスクレイピングする
  - myPlaydata.json ：parseJson.pyによって出力されたJSONファイル
  - beatmaniaPlayData.csv ：解析対象のCSVファイル
+
+## masterにpush、mergeする前に(Merge Policy)
+- README.md記載の実装機能が問題なく動作することを確認すること
 
 ## 実装機能
 
@@ -31,15 +36,18 @@ KONAMI社のアーケード音楽ゲーム”beatmaniaIIDX”のプレイヤー�
 
   - 前提としてpython3の実行環境が必要
   1. `cd beatmania_data_analyzer/`
-  1. `pip install pipenv (--user)`:この作業は初回のみ
+  1. `pip install pipenv (--user)`：この作業は初回のみ
   1. `pipenv shell`
-  1. `pipenv install`
-  1. `python parseJson.py`
-  - 同ディレクトリにmyPlaydata.jsonが出力される
+  1. `pipenv install (--dev)`：必要に応じてdev-packagesもインストールする
+  1. `python parseJson.py`：同ディレクトリにmyPlaydata.jsonが出力される
+  1. `python web_scraping.py`：同ディレクトリのHTMLファイル(test.html)のスクレイピングを行う
 
 ## 対応中の不具合
+
+  - Webスクレイピングはrowspanに対応できずfailed parse dataとして出力される
 
 ## 開発環境
  - VSCode/Git
  - Python3/Pipenv
     - Pandas (Library)
+    - BeautifulSoup4 (Library)
