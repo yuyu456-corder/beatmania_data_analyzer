@@ -7,12 +7,12 @@ verify_ssl = true
 beautifulsoup4 = "*"
 pylint = "*"
 autopep8 = "*"
+flake8 = "*"
 
 [packages]
 numpy = "*"
 pandas = "*"
 matplotlib = "*"
-flake8 = "*"
 
 [requires]
 python_version = "3.8"
