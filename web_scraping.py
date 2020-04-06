@@ -1,8 +1,5 @@
 # 必要なファイルのインポート
 import logging
-# urllibは対象のURLのWebサーバから指定したHTMLファイルを取得するPython付随のライブラリ
-import urllib.request
-import urllib.error
 # 取得したHTMLファイルをパースするライブラリ
 from bs4 import BeautifulSoup
 
@@ -51,7 +48,7 @@ for get_td in get_tbody.find_all("td", class_="style_td"):
 
     # rowspanで連結されたtd要素の対応
     # 現在は無視して、取得できなかったデータを別途表示することで対応
-    if (get_td.get("rowspan") != None):
+    if (get_td.get("rowspan") is not None):
         # 取得できないデータの情報を格納
         failed_row_data.append(get_td.text)
         # 結合した1行目以降のセル数の計算
@@ -81,7 +78,7 @@ for get_td in get_tbody.find_all("td", class_="style_td"):
 
     # colspanで連結されたtd要素は取得しない
     check_concatenated_by_colspan = get_td.get("colspan")
-    if check_concatenated_by_colspan != None:
+    if check_concatenated_by_colspan is not None:
         logging.info("loop continued")
         continue
 
@@ -110,3 +107,7 @@ print("failed parse data>>>")
 print(failed_row_data)
 
 # 出力時にヘッダ部分をどう扱うか考える
+
+
+if __name__ == "__main__":
+    pass
