@@ -43,7 +43,7 @@ def analyze_soup(soup, df_headers):
                 # ２つの<strong>に分けて書かれているため結合する
                 strongs = cols[0].findAll("strong")
                 version = " ".join([strong.text for strong in strongs])
-                logging.info(version, "の楽曲詳細をパースします...")
+                logging.info(version + " の楽曲詳細をパースします...")
             continue
 
         # 各曲の詳細情報の行の場合
