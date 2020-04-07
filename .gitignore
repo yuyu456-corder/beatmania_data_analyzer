@@ -5,5 +5,8 @@ test.html
 # 2回目以降のCSVスコアデータはコミットに必要ない
 myPlaydata.json
 
+# スクレイピング結果をそのままコミットしない
+note_list.csv
+
 # 自分のPCのディレクトリ構成がログに出るインシデントを防ぐ
 .vscode
