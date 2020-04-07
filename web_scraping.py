@@ -27,6 +27,9 @@ def analyze_soup(soup, df_headers):
 
     df = pd.DataFrame(columns=df_headers)
 
+    # パースを無視したtd要素のリスト
+    failed_cell_data = []
+
     # 必要なHTML要素を取得する
     table = soup.find_all("table", class_="style_table")[1]
     tbody = table.find("tbody").extract()
@@ -35,7 +38,7 @@ def analyze_soup(soup, df_headers):
     for row in tbody.find_all("tr"):
         cols = row.find_all("td", class_="style_td")
 
-        # ヘッダ部分の行の場合
+        # ヘッダ部分の行など予想されるテーブルのヘッダに合わない場合
         if len(cols) < MAX_COLUMNS:
             # Beatmaniaのバージョンを示す行の場合、それを記憶する
             if (cols[0].get("colspan") == str(MAX_COLUMNS)):
@@ -44,10 +47,14 @@ def analyze_soup(soup, df_headers):
                 strongs = cols[0].findAll("strong")
                 version = " ".join([strong.text for strong in strongs])
                 logging.info(version + " の楽曲詳細をパースします...")
+            # rowspanで結合され、指定したヘッダより少ないセル数の行はパース対象外として別途格納する
+            elif len(row.findAll("td")) < MAX_COLUMNS:
+                for failed_data in cols:
+                    failed_cell_data.append(failed_data.text)
             continue
 
-        # 各曲の詳細情報の行の場合
-        song_info = {}  # この曲の情報を格納する辞書
+        # この曲の情報を格納する辞書
+        song_info = {}
 
         # この曲のカラム内容を一つずつ辞書に登録していく
         for index, col in enumerate(cols):
@@ -57,7 +64,12 @@ def analyze_soup(soup, df_headers):
             header = df_headers[index]
             song_info[header] = col.text
 
-        df = df.append(song_info, ignore_index=True)
+        # 単純に行を追加したいだけなので元のインデックスを参照する必要がないのでinnore_indexをTrueにしている
+        df = df.append(song_info, ignore_index="True")
+
+    # パース対象外として別途保存したデータを出力する
+    logging.info("failed parsing data>>>")
+    logging.info(failed_cell_data)
 
     return df
 
@@ -66,6 +78,7 @@ if __name__ == "__main__":
 
     # このヘッダーは実物のHTMLに即した順序で作ること
     table_headers = [
+        'title',
         'sp_b',
         'sp_n',
         'sp_h',
@@ -75,17 +88,16 @@ if __name__ == "__main__":
         'dp_h',
         'dp_a',
         'dp_l',
-        'bpm',
-        'genre',
-        'title',
-        'artist',
+        'time',
+        'movie',
+        'layer',
     ]
 
     # データフレーム独自のカラムを後尾に追加
     df_headers = table_headers + ['version']
 
     input_uri = "./test.html"
-    output_uri = "./songs.csv"
+    output_uri = "./note_list.csv"
 
     df = analyze_soup(get_soup(input_uri), df_headers)
     df.to_csv(output_uri, mode="w", index=True, header=True)
